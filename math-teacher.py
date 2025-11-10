@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
 import random
+import sys
 
 dividend = [4, 6, 8, 9, 10, 12, 14, 16, 18, 20, 21, 24, 27, 28, 30, 32, 36, 40, 42, 48, 49, 50, 54, 56, 60, 64, 70, 72, 80, 81, 90, 100]
 divisor =  [[2, 3, 4, 3, 5,  6,  7,  8,  9,  10, 7,  8,  9,  7,  10, 8,  9,  4,  7,  8,  7,  5,  9,  8,  6,  8,  7,  8,  8,  9,  9,  10],
-            [4, 2, 2, 3, 5,  2,  2,  2,  2,  2,  3,  3,  3,  4,  3,  4,  4,  10, 6,  6,  7,  10, 6,  7,  10, 8,  10, 9,  10, 9,  10, 10]]
+            [4, 2, 2, 3, 2,  2,  2,  2,  2,  2,  3,  3,  3,  4,  3,  4,  4,  10, 6,  6,  7,  10, 6,  7,  10, 8,  10, 9,  10, 9,  10, 25]]
 
 class Operation:
     def __init__(self, num1, num2, operation, correct_result):
@@ -18,12 +19,11 @@ class Operation:
             raise TypeError('Can only compare two operations')
         if  (self.num1 == other_operation.num1 and \
             self.num2 == other_operation.num2 and \
-            self.operation == other_operation.operation and \
             self.correct_result == other_operation.correct_result) or \
             (self.num1 == other_operation.correct_result and
              (self.num2 == other_operation.num1 or
              self.num2 == other_operation.num2)) or \
-            (self.correct_result == other_operation.num1 and
+            (self.correct_result == other_operation.num2 and
              (self.num2 == other_operation.num1 or
              self.num2 == other_operation.num2)):
             return True
@@ -67,12 +67,13 @@ def give_operation():
         correct_result = num1 / num2
 
     return Operation(num1, num2, operation, correct_result)
-
-
-
-noMathOperations = 10
+ 
+ 
+if len(sys.argv) > 1:
+    noMathOperations = int(sys.argv[1])
+else:
+    noMathOperations = 10
 customerResults = [None] * noMathOperations
-
 
 for i in range(noMathOperations):
     all_operations = []
